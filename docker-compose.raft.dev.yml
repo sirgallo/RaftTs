@@ -1,0 +1,71 @@
+version: "3"
+services:
+  portalproxy: 
+    image: haproxy-portal-dev-img
+    container_name: haproxy_portal_dev_cont
+    hostname: ${HOSTNAME}
+    network_mode: host
+    build:
+      context: .
+      dockerfile: ./lb/Dockerfile.portal.dev.lb
+    volumes:
+      - ./certs:/certs
+  ledgerproxy: 
+    image: haproxy-ledger-dev-img
+    container_name: haproxy_ledger_dev_cont
+    hostname: ${HOSTNAME}
+    build:
+      context: .
+      dockerfile: ./lb/Dockerfile.ledger.lb
+    volumes:
+      - ./certs:/certs
+    ports: 
+      - '8443:8443'
+    networks:
+      client_network:
+      ledger_network:
+    depends_on:
+      - ledger
+  #portal:
+  #  image: portal-img
+  #  container_name: portal_ledger_cont
+  #  hostname: ${HOSTNAME}
+  #  build:
+  #    context: .
+  #    dockerfile: ./frontend/portal/Dockerfile.portal.prod
+  #  ports:
+  #    - '4200:4200'
+  #  networks:
+  #    client_network:
+  #  depends_on: 
+  #    - ledger
+  ledger:
+    image: ledger-img
+    build:
+      context: .
+      dockerfile: ./ledger/Dockerfile
+    ports:
+      - '1098'
+    environment:
+      - NODE_ENV=docker
+      - NODE_OPTIONS="--max-old-space-size=4096"
+    volumes:
+      - ledger-data:/usr/src/simpleledger
+    networks:
+      ledger_network:
+      ledger_db_layer:
+    healthcheck:
+      test: curl --fail http://localhost:1098/poll || kill 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: always
+networks:
+  client_network:
+    driver: bridge
+  ledger_network:
+    driver: bridge
+  ledger_db_layer:
+    driver: bridge
+volumes:
+  ledger-data:

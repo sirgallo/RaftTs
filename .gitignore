@@ -1,0 +1,12 @@
+node_modules
+dist
+.tscache
+*service.yaml
+.dccache
+
+*-persistentvolumeclaim.yaml
+*-networkpolicy.yaml
+
+certs/*.pem
+certs/*.key
+certs/*.crt
