@@ -2,12 +2,13 @@ import { EventEmitter } from 'events';
 import { randomBytes } from 'crypto';
 
 import { LogProvider } from '@core/providers/LogProvider';
-import { ILinkedNode, HashString } from '@core/models/infrastructure/IMq';
+import { LinkedNode, HashString } from '@core/models/infrastructure/Mq';
 import { 
   LinkedNodeData, 
   SimpleQueue, 
   SimpleQueueMethods 
 } from '@core/models/queue/SimpleQueue';
+
 
 const NAME = 'Simple Queue Provider';
 const HASHLENGTH = 48;
@@ -19,8 +20,8 @@ export class SimpleQueueProvider implements SimpleQueueMethods {
   length: number = 0;
 
   private elements: SimpleQueue = {};
-  private headNode: ILinkedNode;
-  private tailNode: ILinkedNode;
+  private headNode: LinkedNode;
+  private tailNode: LinkedNode;
 
   private queueLog: LogProvider = new LogProvider(NAME);
   constructor(eventName: string) { this.eventName = eventName; }

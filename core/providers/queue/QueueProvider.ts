@@ -1,4 +1,4 @@
-import { Redis } from 'ioredis';
+import * as Redis from 'ioredis';
 
 import { RedisProvider } from '@core/providers/dataAccess/RedisProvider';
 import { QueueOpts, BPOPResp } from '@core/models/queue/Queue';

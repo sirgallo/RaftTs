@@ -6,11 +6,13 @@ import { LogProvider } from '@core/providers/LogProvider';
 import { cryptoOptions } from '@core/crypto/CryptoOptions';
 import { toMs } from '@core/utils/Utils';
 
+
 const NAME = 'JWT Provider';
 const SECRET = randomUUID(cryptoOptions);
 export const TIMESPAN = toMs.min(15);
 const minInDay = 1440;
 export const REFRESHTIMESPAN = toMs.min(minInDay) * 30;
+
 
 /*
   JWT provider, wrapping jsonwebtoken
@@ -19,6 +21,7 @@ export const REFRESHTIMESPAN = toMs.min(minInDay) * 30;
 
   Will only work on systems where the key was generated
 */
+
 
 export class JwtProvider {
   private log = new LogProvider(NAME);

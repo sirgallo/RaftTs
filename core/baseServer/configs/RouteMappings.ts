@@ -1,6 +1,7 @@
 import { ROUTE, STATUSOK, INFO } from '@core/models/ILog';
 import { IBaseRoute } from '@core/baseServer/core/models/IRouteMappings';
 
+
 /*
   Global Route Mapping
 
@@ -10,6 +11,8 @@ import { IBaseRoute } from '@core/baseServer/core/models/IRouteMappings';
 
   Base project will always have a poll route for health checks
 */
+
+
 export const routeMappings: Record<string, IBaseRoute>= {
   poll: {
     key: 'poll',

@@ -3,6 +3,7 @@ import got from 'got';
 import { sleep, extractErrorMessage } from '@core/utils/Utils';
 import { LogProvider } from '@core/providers/LogProvider';
 
+
 const log = new LogProvider('Async Exponential Backoff');
 
 export async function asyncExponentialBackoff(
@@ -22,7 +23,7 @@ export async function asyncExponentialBackoff(
     else {
       log.error(`Error Stack ${extractErrorMessage(err)}\n`)
       
-      const newTimeout = 2 * depth * timeout;
+      const newTimeout = 2 ** depth * timeout;
 
       log.info(`Moving to attempt: ${depth}`);
       log.info(`Waiting for: ${newTimeout}ms\n`);

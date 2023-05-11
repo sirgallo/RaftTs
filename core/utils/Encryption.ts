@@ -2,6 +2,7 @@ import { createCipheriv, createDecipheriv } from 'crypto';
 
 import { LogProvider } from '@core/providers/LogProvider';
 
+
 const encryptionLog = new LogProvider('Encryption Utils')
 
 export const encrypt = (data: any, secret: any, iv: any) => {

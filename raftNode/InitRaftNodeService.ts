@@ -1,11 +1,12 @@
-import { randomBytes } from 'crypto';
-
 import { BaseServer } from '@baseServer/core/BaseServer';
-import { mergeBaseRoutePath } from '@baseServer/core/utils/mergeBaseRoutePath';
 import { LogProvider } from '@core/providers/LogProvider';
-import { SimpleQueueProvider } from '@core/providers/queue/SimpleQueueProvider';
+import { NodeAttributes } from '@raftNode/models/Node';
 
-export class InitRaftNodeService extends BaseServer {
+
+export class InitRaftNodeService extends BaseServer implements NodeAttributes {
+  currentTerm = 0;
+  votedFor: string;
+
   private ledgerInitLog: LogProvider = new LogProvider(`${this.name} Init`);
 
   constructor(private basePath: string, name: string, port?: number, version?: string, numOfCpus?: number) { 

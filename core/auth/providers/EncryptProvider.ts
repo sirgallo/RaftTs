@@ -2,13 +2,16 @@ import { compare, hash } from 'bcrypt';
 
 import { LogProvider } from '@core/providers/LogProvider';
 
+
 const NAME = 'Encrypt Provider';
+
 
 /*
   Use bcrypt library to hash and salt any data (salt being number of rounds hashed).
 
   Default SHA256 is used
 */
+
 
 export class EncryptProvider {
   private log = new LogProvider(NAME);

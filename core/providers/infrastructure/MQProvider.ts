@@ -5,17 +5,19 @@ import { cryptoOptions } from '@core/crypto/CryptoOptions';
 import { LogProvider } from '@core/providers/LogProvider';
 import { SimpleQueueProvider } from '@core/providers/queue/SimpleQueueProvider';
 import {
-  IHeartBeat,
-  IInternalJobQueueMessage,
-  IInternalLivelinessResponse,
+  HeartBeat,
+  InternalJobQueueMessage,
+  InternalLivelinessResponse,
   LifeCycle,
   MachineStatus
-} from '@core/models/infrastructure/IMq';
-import { IGenericJob } from '@core/models/infrastructure/IJob';
+} from '@core/models/infrastructure/Mq';
+import { IGenericJob } from '@core/models/infrastructure/Job';
 import { setIntervalQueue } from '@core/utils/Utils';
+
 
 const NAME = 'MQ Provider';
 const strEncoding = 'utf-8';
+
 
 /*
   ZMQ implementation of an brokerless message queue
@@ -51,6 +53,7 @@ const strEncoding = 'utf-8';
 
   Completely non-blocking
 */
+
 
 const workerQueueEventName = 'workerQueueUpdate';
 const reqQueueEventName = 'reqQueueUpdate';
@@ -88,7 +91,7 @@ export class MQProvider {
       setIntervalQueue(this.workerQueue);
       setIntervalQueue(this.reqQueue);
 
-      const healthCheck: IHeartBeat = { 
+      const healthCheck: HeartBeat = { 
         routerId: this.sock.routingId, 
         healthy: 'Alive',
         status: this.machineStatus 
@@ -102,7 +105,7 @@ export class MQProvider {
       for await (const [ message ] of this.sock) {
         const jsonBody = JSON.parse(message.toString(strEncoding));
         if (jsonBody.message) {
-          const queueEntry: IInternalJobQueueMessage = {
+          const queueEntry: InternalJobQueueMessage = {
             jobId: jsonBody.message,
             header: this.sock.routingId,
             body: jsonBody
@@ -129,7 +132,7 @@ export class MQProvider {
       
       setIntervalQueue(this.reqQueue);
 
-      const healthCheck: IHeartBeat = { 
+      const healthCheck: HeartBeat = { 
         routerId: this.sock.routingId, 
         healthy: 'Alive',
         status: this.machineStatus 
@@ -167,7 +170,7 @@ export class MQProvider {
         const msg = { job: null }
 
         try {
-          const job: IInternalJobQueueMessage = this.workerQueue.dequeue();
+          const job: InternalJobQueueMessage = this.workerQueue.dequeue();
           msg.job = job;
 
           const inProg = MQProvider.formattedReturnObj(this.address, job.jobId, job.body, this.machineStatus, 'In Progress');
@@ -202,7 +205,7 @@ export class MQProvider {
   }
 
   private formattedHealthCheck(): string {
-    const heartbeat: IHeartBeat = {
+    const heartbeat: HeartBeat = {
       routerId: this.sock.routingId,
       healthy: 'Alive',
       status: this.machineStatus
@@ -211,7 +214,7 @@ export class MQProvider {
     return JSON.stringify(heartbeat);
   }
 
-  static formattedReturnObj(node: string, job: string, jsonBody: any, status: MachineStatus, lifeCycle?: LifeCycle): IInternalLivelinessResponse {
+  static formattedReturnObj(node: string, job: string, jsonBody: any, status: MachineStatus, lifeCycle?: LifeCycle): InternalLivelinessResponse {
     return {
       node,
       job,

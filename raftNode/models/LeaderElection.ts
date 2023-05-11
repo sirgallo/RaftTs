@@ -9,5 +9,3 @@ export interface RequestVoteRPCResponse {
   term: number;
   voteGranted: boolean;
 }
-
-export type NodeRole = 'Leader' | 'Candidate' | 'Follower';

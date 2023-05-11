@@ -1,7 +1,8 @@
-import { ILinkedNode, HashString } from '@core/models/infrastructure/IMq';
+import { LinkedNode, HashString } from '@core/models/infrastructure/Mq';
 
-export type SimpleQueue = Record<HashString, ILinkedNode>;
-export type LinkedNodeData = Pick<ILinkedNode, 'value' | 'timestamp'>
+
+export type SimpleQueue = Record<HashString, LinkedNode>;
+export type LinkedNodeData = Pick<LinkedNode, 'value' | 'timestamp'>
 
 export interface SimpleQueueMethods {
   enqueue(insertValue: any): void;

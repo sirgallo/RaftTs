@@ -1,5 +1,6 @@
 import { wrapAsync } from '@core/utils/Utils';
  
+
 /*
   Individual nodes within the trie data structure
   
@@ -9,6 +10,7 @@ import { wrapAsync } from '@core/utils/Utils';
     - end, a truthy value to assign the end of a word
   Methods are getters and setters
 */
+
 
 class TrieNode {
   protected ctn: Record<string, TrieNode> = {};

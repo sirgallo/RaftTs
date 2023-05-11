@@ -1,7 +1,5 @@
-import { 
-  BASE, STATUSOK,
-  CustomMessageWrap 
-} from '@core/models/ILog';
+import { BASE, STATUSOK, CustomMessageWrap } from '@core/models/ILog';
+
 
 export interface IIndividualTimerMap {
   start: Date;

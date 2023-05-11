@@ -23,7 +23,7 @@ export interface AppendEntriesRPC {
   leaderCommit: number;
 }
 
-export interface AppendEntriesRPCResults {
+export interface AppendEntriesRPCResponse {
   term: number;
   success: boolean;
 }

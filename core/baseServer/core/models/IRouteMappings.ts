@@ -1,7 +1,5 @@
-import {
-  ICustomMessage,
-  CustomMessage
-} from '@core/models/ILog';
+import { ICustomMessage, CustomMessage } from '@core/models/ILog';
+
 
 export interface IBaseRoute {
   key: string;

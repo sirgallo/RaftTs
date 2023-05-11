@@ -1,13 +1,7 @@
-import {
-  PlatformOptions,
-  getPlatform,
-  PlatformOptionsType
-} from '@core/utils/Platform';
-import { 
-  CustomMessageWrap, 
-  DEBUG, WARN
-} from '@core/models/ILog'
+import { PlatformOptions, getPlatform, PlatformOptionsType } from '@core/utils/Platform';
+import { CustomMessageWrap, DEBUG, WARN } from '@core/models/ILog'
 import { LogProvider } from '@core/providers/LogProvider';
+
 
 const log = new LogProvider('Dynamic Loader');
 

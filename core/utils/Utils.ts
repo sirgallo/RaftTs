@@ -4,6 +4,7 @@ const { isEqual, cloneDeepWith } = lodash;
 
 import { SimpleQueueProvider } from '@core/providers/queue/SimpleQueueProvider';
 
+
 export const toMs = {
   sec: (sec: number): number => sec * 1000,
   min: (min: number): number => min * 60000

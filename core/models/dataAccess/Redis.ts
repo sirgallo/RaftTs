@@ -1,5 +1,6 @@
 import { RedisOptions } from 'ioredis';
 
+
 export const DB_INDEX_OFFSETS = {
   default: 0,
   streams: 20

@@ -6,6 +6,7 @@ import {
 import { IMongoCredentials } from '@core/models/dataAccess/IMongoose';
 import { LogProvider } from '@core/providers/LogProvider';
 
+
 export abstract class MongooseProvider {
   conn: Connection;
   private log = new LogProvider('Mongoose Provider');

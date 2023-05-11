@@ -1,20 +1,20 @@
-export interface IMqOpts {
+export interface MqOpts {
   domain: string;
   port: string;
   topic: string;
 }
 
-export interface IInternalJobQueueMessage {
+export interface InternalJobQueueMessage {
   jobId: string;
   header: string;
-  body: ISockRequest;
+  body: SockRequest;
 }
 
-export interface ISockRequest {
+export interface SockRequest {
   message: any;
 }
 
-export interface IInternalLivelinessResponse {
+export interface InternalLivelinessResponse {
   node: string;
   job: string;
   message: any;
@@ -22,20 +22,23 @@ export interface IInternalLivelinessResponse {
   lifeCycle?: LifeCycle;
 }
 
-export interface IAvailableMachine {
+export interface HeartBeatMethods {
+  heartbeat: (machineId: string) => Promise<void>;
+}
+
+export interface AvailableMachine extends HeartBeatMethods {
   status: MachineStatus;
   validated: Date;
-  heartbeat: (machineId: string, machineType?: MachineTypes) => Promise<void>;
   connAttempts: number;
 }
 
-export interface IHeartBeat {
+export interface HeartBeat {
   routerId: string;
   healthy: Liveliness;
   status: MachineStatus;
 }
 
-export interface ILinkedNode {
+export interface LinkedNode {
   id: HashString;
   next: HashString;
   value: NodeValue;
@@ -48,3 +51,5 @@ export type Liveliness = 'Alive' | 'Dead';
 export type MachineTypes = 'Client' | 'Worker' | 'Replica';
 export type MachineStatus = 'Ready' | 'Busy';
 export type LifeCycle = 'Not Started' | 'In Queue' | 'In Progress' | 'Finished' | 'Failed';
+
+export type KnownMachinesMap = Record<string, AvailableMachine>;

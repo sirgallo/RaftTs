@@ -2,9 +2,11 @@ import {
   Response, Router, Request, NextFunction 
 } from 'express';
 
+
 /*
   All routes need to extend this class
 */
+
 
 export interface RouteOpts {
   method: string;
